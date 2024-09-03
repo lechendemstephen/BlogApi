@@ -11,7 +11,7 @@ oauth_schemes = OAuth2PasswordBearer(tokenUrl='login')
 # ACESS_TOKEN_EXPIRE_MINUTES 
 SECRET_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJrZXkiOiJ2YWx1ZSJ9.FG-8UppwHaFp1LgRYQQeS6EDQF7_6-bMFegNucHjmWg'
 ALGORITHM = 'HS256'
-ACCESS_TOKEN_EXPIRE_MINUTES = 60
+ACCESS_TOKEN_EXPIRE_MINUTES = 1
 
 # creating access token 
 def create_access_token(data: dict): 
@@ -42,7 +42,7 @@ def verify_access_token(token: str, credential_exception):
 # getting the current user 
 
 def get_current_user(token: str = Depends(oauth_schemes)): 
-    exception_credential = HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail=f'token authorized', headers={"WWW-unathorized": "bearer"})
+    exception_credential = HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail=f'user unauthorized', headers={"WWW-unathorized": "bearer"})
 
     return verify_access_token(token, exception_credential)
 

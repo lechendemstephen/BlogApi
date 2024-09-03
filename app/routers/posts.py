@@ -18,7 +18,7 @@ def get_all_posts(db: Session = Depends(get_db), user_id: int = Depends(oath2.ge
 
 # creating a post
 @router.post('/', status_code=status.HTTP_201_CREATED)
-def create_post(post:schemas.Posts, db: Session = Depends(get_db)): 
+def create_post(post:schemas.Posts, db: Session = Depends(get_db), user_id: int = Depends(oath2.get_current_user)): 
 
     new_post = models.Posts(
         **post.dict()
@@ -33,7 +33,7 @@ def create_post(post:schemas.Posts, db: Session = Depends(get_db)):
 
 # getting new post by ID
 @router.get("/{id}", status_code=status.HTTP_200_OK)
-def get_single_posts(id:int, db: Session = Depends(get_db)): 
+def get_single_posts(id:int, db: Session = Depends(get_db), user_id: int = Depends(oath2.get_current_user)): 
     single_post = db.query(models.Posts).filter(models.Posts.id == id).first()
 
     if single_post is None: 
@@ -44,7 +44,7 @@ def get_single_posts(id:int, db: Session = Depends(get_db)):
 # Deleting Single post based in ID
 
 @router.delete('/{id}', status_code=status.HTTP_200_OK)
-def delete_single_posts(id:int, db: Session = Depends(get_db)): 
+def delete_single_posts(id:int, db: Session = Depends(get_db), user_id: int = Depends(oath2.get_current_user)): 
     deleted_posts = db.query(models.Posts).filter(models.Posts.id == id).first()
 
     if deleted_posts is None: 
@@ -55,7 +55,7 @@ def delete_single_posts(id:int, db: Session = Depends(get_db)):
 # Updating a posts based in their ID
 
 @router.put('/{id}')
-def update_posts(post: schemas.Posts, id: int, db: Session = Depends(get_db)): 
+def update_posts(post: schemas.Posts, id: int, db: Session = Depends(get_db), user_id: int = Depends(oath2.get_current_user)): 
 
     updated_posts = db.query(models.Posts).filter(models.Posts.id == id).first()
 

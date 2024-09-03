@@ -1,5 +1,4 @@
-from fastapi import FastAPI, APIRouter, status, HTTPException
-
+from fastapi import FastAPI
 from .routers import posts, users, auth
 from . import models
 from .database import engine

@@ -1,10 +1,15 @@
 from typing import Optional
 from pydantic import BaseModel, EmailStr
-
+from datetime import datetime
 
 class Posts(BaseModel): 
     title: str 
     description: str
+
+class PostsOut(Posts): 
+    id: int
+    created_at: datetime
+    owner_id: int
 
 class UpdatePosts(Posts): 
     pass 
