@@ -5,7 +5,7 @@ from datetime import datetime
 class Posts(BaseModel): 
     title: str 
     description: str
-
+   
 class PostsOut(Posts): 
     id: int
     created_at: datetime
